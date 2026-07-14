@@ -19,6 +19,8 @@ function createWindow() {
     width: 1100,
     height: 760,
     backgroundColor: '#111111',
+    icon: path.join(__dirname, 'build', 'icon.ico'),
+    title: 'BackupSafe',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,

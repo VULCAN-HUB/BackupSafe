@@ -11,9 +11,11 @@
   "author": "Unknown",
   "license": "UNLICENSED",
   "devDependencies": {
+    "@fontsource/rajdhani": "^5.2.7",
     "electron": "^31.0.0",
     "electron-builder": "^26.15.3",
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "pretendard": "^1.3.9"
   },
   "dependencies": {
     "exifr": "^7.1.3"
@@ -21,6 +23,7 @@
   "build": {
     "appId": "com.unknown.backupsafe",
     "productName": "BackupSafe",
+    "copyright": "© 2026 Unknown",
     "directories": {
       "output": "dist"
     },
@@ -29,13 +32,16 @@
       "preload.js",
       "renderer/**/*",
       "services/**/*",
+      "build/icon.ico",
       "package.json"
     ],
     "win": {
-      "target": "portable"
+      "target": "portable",
+      "icon": "build/icon.ico"
     },
     "mac": {
-      "target": "dmg"
+      "target": "dmg",
+      "icon": "build/icon.png"
     }
   }
 }

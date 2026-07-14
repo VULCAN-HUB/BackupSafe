@@ -1,32 +1,263 @@
-:root { --bg:#111111; --accent:#D35400; --fg:#f0f0f0; --muted:#888; }
+/* ── 공통 브랜드 폰트 (로컬 임베드) ─────────────────────────── */
+@font-face {
+  font-family: 'Rajdhani';
+  font-weight: 700;
+  src: url('fonts/rajdhani-latin-700-normal.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Rajdhani';
+  font-weight: 500;
+  src: url('fonts/rajdhani-latin-500-normal.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 400;
+  src: url('fonts/Pretendard-Regular.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 500;
+  src: url('fonts/Pretendard-Medium.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 700;
+  src: url('fonts/Pretendard-Bold.woff2') format('woff2');
+  font-display: swap;
+}
+
+/* ── 공통 브랜드 컬러/테마 ──────────────────────────────────── */
+:root {
+  --bg: #111111;         /* Obsidian Black */
+  --accent: #D35400;     /* Amber Orange */
+  --accent-hi: #E67E22;
+  --fg: #f0f0f0;
+  --muted: #888888;
+  --line: #222222;
+}
 * { box-sizing: border-box; }
-body { margin:0; background:var(--bg); color:var(--fg);
-  font-family:'Pretendard','Malgun Gothic',sans-serif; }
-.appbar { display:flex; align-items:center; justify-content:space-between;
-  padding:12px 20px; border-bottom:1px solid #222; }
-.wordmark { font-family:'Rajdhani',sans-serif; font-weight:700; font-size:22px;
-  letter-spacing:1px; }
-.wordmark::first-letter { color:var(--accent); }
-.about-q { width:22px;height:22px;border-radius:50%;border:1px solid var(--muted);
-  background:none;color:var(--fg);cursor:pointer; }
-.about-q:hover { background:var(--accent); border-color:var(--accent); }
-.steps { display:flex; gap:8px; padding:10px 20px; color:var(--muted); }
-.steps span { padding:4px 10px; border-radius:4px; }
-.steps span.active { background:var(--accent); color:#fff; }
-.steps span.done { color:var(--accent); }
-main { padding:20px; min-height:420px; }
-.navbar { display:flex; justify-content:flex-end; gap:10px; padding:14px 20px;
-  border-top:1px solid #222; }
-button { background:var(--accent); color:#fff; border:none; padding:8px 18px;
-  border-radius:4px; cursor:pointer; font-size:14px; }
-button:disabled { background:#333; color:#666; cursor:not-allowed; }
-.row { display:flex; align-items:center; gap:10px; padding:8px;
-  border-bottom:1px solid #222; }
-.badge { font-size:11px; padding:2px 6px; border-radius:3px; background:#333; }
-.bar { height:14px; background:#222; border-radius:7px; overflow:hidden; }
-.bar > i { display:block; height:100%; background:var(--accent); width:0; }
-.banner-ok { background:#1d3a1d; border:1px solid #3a3; padding:12px; border-radius:6px; }
-.banner-bad { background:#3a1d1d; border:1px solid #a33; padding:12px; border-radius:6px; }
-.token { background:#333; margin:2px; padding:4px 8px; font-size:12px; }
-.preview { color:var(--muted); font-size:13px; }
-.collision { color:#f66; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Pretendard', 'Malgun Gothic', sans-serif;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+
+/* ── 헤더 바 (44px, 브랜드 표준) ────────────────────────────── */
+.appbar {
+  height: 44px;
+  flex: 0 0 44px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.appbar .logo { width: 36px; height: 36px; flex: 0 0 36px; }
+.wordmark {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1;
+  letter-spacing: 0.5px;
+}
+.wordmark .w1 { color: #ffffff; }
+.wordmark .w2 { color: var(--accent); }
+.tagline {
+  color: #555555;
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  margin-left: 4px;
+}
+.appbar .spacer { flex: 1 1 auto; }
+.credit {
+  color: #3a3a3a;
+  font-size: 11px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+.about-q {
+  width: 22px; height: 22px; flex: 0 0 22px;
+  border-radius: 11px;
+  border: 1px solid #333333;
+  background: transparent;
+  color: #444444;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all .15s;
+}
+.about-q:hover {
+  border-color: var(--accent);
+  color: #fff;
+  background: var(--accent);
+}
+
+/* ── 단계 표시줄 ────────────────────────────────────────────── */
+.steps {
+  display: flex;
+  gap: 6px;
+  padding: 12px 20px;
+  color: var(--muted);
+  font-size: 13px;
+  border-bottom: 1px solid var(--line);
+}
+.steps span {
+  padding: 5px 12px;
+  border-radius: 4px;
+  letter-spacing: .3px;
+}
+.steps span.active { background: var(--accent); color: #fff; font-weight: 700; }
+.steps span.done { color: var(--accent); }
+
+/* ── 본문 ──────────────────────────────────────────────────── */
+main { flex: 1 1 auto; padding: 22px; overflow-y: auto; }
+main h2 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 14px;
+  color: #fff;
+}
+main h2::before {
+  content: '';
+  display: inline-block;
+  width: 3px; height: 15px;
+  background: var(--accent);
+  margin-right: 9px;
+  vertical-align: -2px;
+  border-radius: 2px;
+}
+
+/* ── 하단 내비 ──────────────────────────────────────────────── */
+.navbar {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px 20px;
+  border-top: 1px solid var(--line);
+  background: #0d0d0d;
+}
+
+/* ── 버튼 ──────────────────────────────────────────────────── */
+button {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: inherit;
+  transition: background .15s;
+}
+button:hover:not(:disabled) { background: var(--accent-hi); }
+button:disabled { background: #2a2a2a; color: #666; cursor: not-allowed; }
+button.ghost {
+  background: transparent;
+  border: 1px solid #333;
+  color: #bbb;
+}
+button.ghost:hover:not(:disabled) { background: #1c1c1c; border-color: #444; }
+
+/* ── 리스트/행 ─────────────────────────────────────────────── */
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--line);
+}
+.row input[type=text], .row input[type=number], input[type=text], select {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: var(--fg);
+  border-radius: 4px;
+  padding: 6px 8px;
+  font-family: inherit;
+  font-size: 13px;
+}
+.row input[type=text]:focus, input[type=text]:focus, select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.badge {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: #2a2118;
+  color: var(--accent);
+  border: 1px solid #4a3a28;
+}
+
+/* ── 진행 바 ───────────────────────────────────────────────── */
+.bar { height: 16px; background: #1c1c1c; border-radius: 8px; overflow: hidden; border: 1px solid #2a2a2a; }
+.bar > i { display: block; height: 100%; background: linear-gradient(90deg, #C0390B, var(--accent)); width: 0; transition: width .2s; }
+
+/* ── 결과 배너 ─────────────────────────────────────────────── */
+.banner-ok { background: #14261a; border: 1px solid #2f6b3f; color: #8fe0a8; padding: 13px; border-radius: 6px; margin-top: 12px; }
+.banner-bad { background: #2a1414; border: 1px solid #7a2f2f; color: #f0a0a0; padding: 13px; border-radius: 6px; margin-top: 12px; }
+
+/* ── 이름변경 토큰 ─────────────────────────────────────────── */
+.token {
+  background: #1a1a1a;
+  border: 1px solid #3a3a3a;
+  color: #ddd;
+  margin: 3px 4px 3px 0;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-family: inherit;
+}
+.token:hover:not(:disabled) { border-color: var(--accent); color: #fff; background: #241a12; }
+.preview { color: var(--muted); font-size: 13px; line-height: 1.7; margin-top: 8px; }
+.collision { color: #f66; }
+
+/* ── About 다이얼로그 (브랜드 표준) ────────────────────────── */
+.about-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.6);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 999;
+}
+.about-dialog {
+  width: 380px;
+  background: var(--bg);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,.6);
+}
+.about-banner {
+  height: 90px;
+  background: linear-gradient(135deg, #C0390B, #D35400);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 22px;
+}
+.about-banner .logo { width: 56px; height: 56px; }
+.about-banner .title { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 24px; color: #fff; line-height: 1.1; }
+.about-banner .sub { color: rgba(255,255,255,.65); font-size: 11px; }
+.about-body { padding: 18px 22px; }
+.about-row { display: flex; align-items: baseline; margin-bottom: 7px; }
+.about-row .k { width: 66px; flex: 0 0 66px; color: #555; font-size: 11px; }
+.about-row .v { color: #ccc; font-size: 12px; font-weight: 700; }
+.about-row .v.accent { color: var(--accent); }
+.about-row .v a { color: #FF4444; text-decoration: none; }
+.about-row .v a:hover { text-decoration: underline; }
+.about-desc { color: #555; font-size: 11px; line-height: 1.6; margin-top: 12px; }
+.about-btnbar {
+  background: #0d0d0d;
+  border-top: 1px solid #1e1e1e;
+  padding: 12px 18px;
+  text-align: right;
+}
