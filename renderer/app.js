@@ -18,6 +18,8 @@ const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
 document.getElementById('aboutBtn').onclick = showAbout;
 
+function goNext() { if (state.step < 4) setStep(state.step + 1); }
+
 function setStep(n) {
   state.step = n;
   document.querySelectorAll('.steps span').forEach((el) => {
@@ -25,6 +27,11 @@ function setStep(n) {
     el.classList.toggle('active', s === n);
     el.classList.toggle('done', s < n);
   });
+  // footer 기본값 (각 render가 필요 시 재정의). Step 4·완료 화면은 자체 설정.
+  prevBtn.style.display = '';
+  nextBtn.style.display = '';
+  nextBtn.textContent = '다음';
+  nextBtn.onclick = goNext;
   render();
 }
 
@@ -131,7 +138,10 @@ async function renderCopy() {
 
 async function renderRename() {
   prevBtn.disabled = false;
-  nextBtn.disabled = true;
+  // 마지막 단계 — '다음' 대신 '이름 변경 없이 저장(완료)'
+  nextBtn.disabled = false;
+  nextBtn.textContent = '이름 변경 없이 저장';
+  nextBtn.onclick = () => finishFlow(false);
   const tokens = ['{날짜}', '{클라이언트명}', '{촬영지}', '{순번}', '{원본파일명}'];
   panel.innerHTML =
     '<h2>이름 변경</h2>' +
@@ -182,13 +192,47 @@ async function renderRename() {
   refreshPreview();
 
   document.getElementById('apply').onclick = async () => {
+    const applyBtn = document.getElementById('apply');
+    applyBtn.disabled = true;
     const active = state.destinations.filter((d) => d.active).map((d) => d.path);
     await api.applyRename({
       destinations: active, folderName: state.folderName,
       mode: window.__lastMode, previews: window.__lastPreviews,
     });
-    document.getElementById('preview').innerHTML += '<div class="banner-ok">이름 변경 완료.</div>';
+    finishFlow(true);
   };
+}
+
+// 마지막 완료 화면 (이름변경 적용 후 또는 '이름 변경 없이 저장' 후)
+function finishFlow(renamed) {
+  const summary = (state.results || []).map((r) =>
+    `<div class="row">${r.allOk ? '✓' : '✗'} ${r.destination} — 정상 ${r.ok} / 누락 ${r.missing.length} / 손상 ${r.corrupt.length}</div>`
+  ).join('');
+  panel.innerHTML =
+    '<h2>완료</h2>' +
+    (renamed
+      ? '<div class="banner-ok">✓ 백업과 이름 변경이 모두 완료되었습니다.</div>'
+      : '<div class="banner-ok">✓ 백업이 완료되었습니다. (이름은 원본 그대로 저장)</div>') +
+    summary +
+    (state.verifiedOk
+      ? '<div class="preview" style="margin-top:12px">모든 백업이 정상 검증되었습니다. 이제 메모리카드를 포맷해도 안전합니다.</div>'
+      : '') +
+    `<div class="preview" style="margin-top:6px">결과 폴더명: <b>${state.folderName}</b></div>`;
+  prevBtn.style.display = 'none';
+  nextBtn.textContent = '새 백업 시작';
+  nextBtn.disabled = false;
+  nextBtn.onclick = resetFlow;
+}
+
+function resetFlow() {
+  state.card = null;
+  state.destinations = [];
+  state.folderName = '';
+  state.index = null;
+  state.hashes = null;
+  state.results = null;
+  state.verifiedOk = false;
+  setStep(1);
 }
 
 function fmtGB(bytes) { return (bytes / 1e9).toFixed(1) + 'GB'; }
@@ -198,5 +242,4 @@ function today() {
 }
 
 prevBtn.onclick = () => { if (state.step > 1) setStep(state.step - 1); };
-nextBtn.onclick = () => { if (state.step < 4) setStep(state.step + 1); };
 setStep(1);
