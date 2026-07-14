@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>BackupSafe</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="appbar">
+    <span class="wordmark">BackupSafe</span>
+    <button id="aboutBtn" class="about-q" title="정보">?</button>
+  </header>
+  <nav class="steps">
+    <span data-step="1" class="active">1 카드</span>
+    <span data-step="2">2 백업 위치</span>
+    <span data-step="3">3 복사·검증</span>
+    <span data-step="4">4 이름 변경</span>
+  </nav>
+  <main id="panel"></main>
+  <footer class="navbar">
+    <button id="prevBtn">이전</button>
+    <button id="nextBtn">다음</button>
+  </footer>
+  <script src="about.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
