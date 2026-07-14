@@ -88,11 +88,16 @@ body {
 }
 .about-q {
   width: 22px; height: 22px; flex: 0 0 22px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 11px;
   border: 1px solid #333333;
   background: transparent;
-  color: #444444;
+  color: #888888;
   font-size: 13px;
+  font-weight: 700;
   line-height: 1;
   cursor: pointer;
   transition: all .15s;

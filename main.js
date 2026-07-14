@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog, Notification } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain, dialog, Notification } = require('electron');
 const path = require('path');
 const fs = require('fs/promises');
 
@@ -21,6 +21,7 @@ function createWindow() {
     backgroundColor: '#111111',
     icon: path.join(__dirname, 'build', 'icon.ico'),
     title: 'BackupSafe',
+    autoHideMenuBar: true,   // 상단 네이티브 메뉴바 숨김
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
@@ -31,6 +32,7 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  Menu.setApplicationMenu(null); // 상단 메뉴바(File/Edit/View…) 완전 제거
   createWindow();
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
