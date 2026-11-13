@@ -1,10 +1,10 @@
 # BackupSafe
 
-**테스트 중 · v0.1-beta · 정식 출시 전**
+**테스트 중 · Beta-Ver.0.1.0 · 정식 출시 전**
 
 메모리카드의 촬영본을 여러 위치로 복사하고, SHA-256 해시로 원본과 복사본을 대조하는 데스크톱 앱입니다.
 
-**[다운로드](https://github.com/VULCAN-HUB/BackupSafe/releases/tag/v0.1-beta)** · **[사용 안내](#사용법)**
+**[다운로드](https://github.com/VULCAN-HUB/BackupSafe/releases/tag/Beta-Ver.0.1.0)** · **[사용 안내](#사용법)**
 
 제작: **Unknown** · [홈페이지](https://vulcan-hub.github.io/) · [YouTube](https://www.youtube.com/@unknown8563)
 
@@ -26,17 +26,22 @@
 
 ## 사용법
 
-`BackupSafe-0.1.0-portable.exe`를 설치 없이 실행합니다.
+`BackupSafe-Beta-Ver.0.1.0-portable.exe`를 설치 없이 실행합니다.
 
 1. 메모리카드를 꽂고 BackupSafe 실행 — 카드가 자동으로 잡힙니다
 2. 백업 위치를 하나 이상 고르고 **복사**
 3. 검증 결과가 모두 **정상**이면 포맷 안내가 뜹니다. 필요하면 이름 일괄 변경
 
-## 업데이트 내역
-- **v0.1-beta** (2026-07) — 첫 베타. 알려진 한계: 아주 큰 단일 파일, 카드 제거 감지
+## 버전 기록
+
+버전별 변경 내용은 [Releases](https://github.com/VULCAN-HUB/BackupSafe/releases)에 있습니다.
 
 ## 라이선스·공개 정책
 
 현재 공개 저장소에 별도의 LICENSE 파일이 없습니다. 소스·배포물의 재배포 및 수정 이용 조건은 별도 확인이 필요합니다.
 
 [공개 정책: VULCAN-0.3](https://github.com/VULCAN-HUB/RawBaker/blob/main/PUBLICATION_POLICY.md)
+
+---
+
+작성자 : IGNIS - Claude Code, Codex / Unknown · YouTube @unknown8563
